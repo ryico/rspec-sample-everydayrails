@@ -20,7 +20,8 @@ module AppName
       fixtures: false,
       view_specs: false,
       helper_specs: false,
-      routing_specs: false
+      routing_specs: false,
+      request_specs: false
     end
   end
 end
