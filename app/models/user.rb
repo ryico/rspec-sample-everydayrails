@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :notes
 
   def name
-    [first_name, last_name].join(" ")
+    [first_name, last_name].join(' ')
   end
 
 end
