@@ -43,6 +43,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
@@ -64,9 +66,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
-  gem 'factory_bot_rails'
   gem 'faker'
-  gem 'rspec-rails'
   gem 'rspec_junit_formatter'
 end
 
