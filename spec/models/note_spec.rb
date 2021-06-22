@@ -1,53 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe Note, type: :model do
-  before do
-    @user = User.create(
-      first_name: "Joe",
-      last_name: "Tester",
-      email: "joetester@example.com",
-      password: "dottle-nouveau-pavilion-tights-furze",
-    )
+  it 'generates associated data from a factory' do
+    note = create(:note)
+    puts "This note's project is #{note.project.inspect}"
+    puts "This note's user is #{note.user.inspect}"
+  end
 
-    @project = @user.projects.create(
-      name: "Test Project",
-    )
+  before do
+    @user = create(:user)
+
+    @project = create(:project)
   end
 
   it "is valid with a user, project, and message" do
-    note = Note.new(
-      message: "This is a sample note",
-      user: @user,
-      project: @project,
-    )
+    note = build(:note)
     expect(note).to be_valid
   end
 
   it "is invalid without a message" do
-    note = Note.new(message: nil)
+    note = build(:note, message: nil)
     note.valid?
     expect(note.errors[:message]).to include("can't be blank")
   end
 
   describe "search message for a term" do
     before do
-      @note1 = @project.notes.create(
-        message: "This is the first note.",
-        user: @user,
-      )
-      @note2 = @project.notes.create(
-        message: "This is the second note.",
-        user: @user
-      )
-      @note3 = @project.notes.create(
-        message: "First, preheat the oven.",
-        user: @user,
-      )
+      @note1 = create(:note)
+      @note2 = create(:note)
+      @note3 = create(:note)
     end
 
     context "when a match is found" do
       it "returns notes that match the search term" do
-        expect(Note.search("first")).to include(@note1, @note3)
+        expect(Note.search("note")).to include(@note1, @note3)
       end
     end
 
