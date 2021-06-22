@@ -1,28 +1,43 @@
-# README
+# RSpec Learning Project README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## System dependencies
 
-Things you may want to cover:
+- Docker
 
-* Ruby version
+### Ruby version
 
-* System dependencies
+```
+2.5.3
+```
 
-* Configuration
+### Rails version
 
-* Database creation
+```
+5.2.4.3
+```
 
-* Database initialization
+## Set Up
 
-* How to run the test suite
+### Build and Launch Containers
 
-* Services (job queues, cache servers, search engines, etc.)
+```sh
+$ docker-compose up -d
+```
 
-* Deployment instructions
+### Database initialization
 
-* ...
+```sh
+$ docker-compose run --rm web bin/setup
+```
+
+### How to run the test suite
+
+```sh
+$ docker-compose run --rm web bin/rspec
+```
 
 ## 参照
+
+[Everyday Rails - RSpecによるRailsテスト入門](https://leanpub.com/everydayrailsrspec-jp/read)
 
 [Rails5+Mysql on Docker: Qiita](https://qiita.com/azul915/items/5b7063cbc80192343fc0)
