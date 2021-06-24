@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
+  before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
@@ -6,6 +9,16 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def set_project
+    @project = Project.find(params[:project_id])
+  end
+
+  def project_owner?
+    unless @project.owner == current_user
+      redirect_to root_path, alert: "You don't have access to that project."
+    end
+  end
 
   def configure_permitted_parameters
     added_attrs = [ :first_name, :last_name, :email, :password, :password_confirmation ]
