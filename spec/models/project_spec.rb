@@ -24,13 +24,9 @@ RSpec.describe Project, type: :model do
   it "does not allow duplicate project names per user" do
     user = create(:user)
 
-    user.projects.create(
-      name: "Test Project",
-    )
+    create(:project, name: "Test Project", owner: user)
 
-    new_project = user.projects.build(
-      name: "Test Project",
-    )
+    new_project = build(:project, name: "Test Project", owner: user)
 
     new_project.valid?
     expect(new_project.errors[:name]).to include("has already been taken")
@@ -39,15 +35,11 @@ RSpec.describe Project, type: :model do
   it "allows two users to share a project name" do
     user = create(:user)
 
-    user.projects.create(
-      name: "Test Project",
-    )
+    create(:project, name: "Test Project", owner: user)
 
     other_user = create(:user)
 
-    other_project = other_user.projects.build(
-      name: "Test Project",
-    )
+    other_project = build(:project, name: "Test Project", owner: other_user)
 
     expect(other_project).to be_valid
   end
