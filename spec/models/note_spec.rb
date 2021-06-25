@@ -64,8 +64,10 @@ RSpec.describe Note, type: :model do
 
     context 'when no match is found' do
       it 'returns an empty collection' do
-        expect(Note.search('message')).to be_empty
-        expect(Note.count).to eq(3)
+        aggregate_failures do
+          expect(Note.search('message')).to be_empty
+          expect(Note.count).to eq(3)
+        end
       end
     end
   end

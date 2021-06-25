@@ -14,12 +14,14 @@
 #     click_link 'RSpec tutorial'
 #     check 'Finish RSpec tutorial'
 
-#     expect(page).to have_css "label#task_#{task.id}.completed"
-#     expect(task.reload).to be_completed
+#     aggregate_failures do
+#       expect(page).to have_css "label#task_#{task.id}.completed"
+#       expect(task.reload).to be_completed
 
-#     uncheck 'Finish RSpec tutorial'
+#       uncheck 'Finish RSpec tutorial'
 
-#     expect(page).to_not have_css "label#task_#{task.id}.completed"
-#     expect(task.reload).to_not be_completed
+#       expect(page).to_not have_css "label#task_#{task.id}.completed"
+#       expect(task.reload).to_not be_completed
+#     end
 #   end
 # end
