@@ -4,7 +4,7 @@ module Api
     prepend_before_action :authenticate_user_from_token!
 
     def index
-      @project = current_user.projects
+      @projects = current_user.projects
       render json: @projects
     end
 
