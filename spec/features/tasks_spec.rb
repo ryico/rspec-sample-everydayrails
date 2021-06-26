@@ -1,27 +1,50 @@
-# require 'rails_helper'
+require 'rails_helper'
 
-# RSpec.feature 'Tasks', taype: :feature do
-#   scenario 'user toggles a task', js: true do
-#     user = create(:user)
-#     project = create(:project, name: 'RSpec tutorial', owner: user)
-#     task = project.tasks.create!(name: 'Finish RSpec tutorial')
-#     visit root_path
-#     click_link 'Sign in'
-#     fill_in 'Email',	with: user.email
-#     fill_in 'Password', with: user.password
-#     click_button 'Log in'
+RSpec.feature 'Tasks', taype: :feature do
+  let(:user) { create(:user) }
+  let(:project) {
+    create(:project,
+      name: 'RSpec tutorial',
+      owner: user
+    )
+  }
+  let!(:task) { create(:task, name: 'Finish RSpec tutorial') }
 
-#     click_link 'RSpec tutorial'
-#     check 'Finish RSpec tutorial'
+  scenario 'user toggles a task', js: true do
+    sign_in user
+    go_to_project 'RSpec tutorial'
 
-#     aggregate_failures do
-#       expect(page).to have_css "label#task_#{task.id}.completed"
-#       expect(task.reload).to be_completed
+    complete_task 'Finish RSpec tutorial'
+    expect_complete_task 'Finish RSpec tutorial'
 
-#       uncheck 'Finish RSpec tutorial'
+    undo_complete_task 'Finish RSpec tutorial'
+    expect_incomplete_task 'Finish RSpec tutorial'
+  end
 
-#       expect(page).to_not have_css "label#task_#{task.id}.completed"
-#       expect(task.reload).to_not be_completed
-#     end
-#   end
-# end
+  def go_to_project(name)
+    visit root_path
+    click_link name
+  end
+
+  def  complete_task(name)
+    check name
+  end
+
+  def undo_complete_task(name)
+    uncheck name
+  end
+
+  def expect_complete_task(name)
+    aggregate_failures do
+      expect(page).to have_css 'label.completed', text: name
+      expect(task.reload).to be_completed
+    end
+  end
+
+  def expect_incomplete_task(name)
+    aggregate_failures do
+      expect(page).to_not have_css 'label.completed', text: name
+      expect(task.reload).to_not be_completed
+    end
+  end
+end
