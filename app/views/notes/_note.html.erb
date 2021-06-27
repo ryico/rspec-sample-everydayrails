@@ -3,9 +3,8 @@
     <%= simple_format note.message %>
   </div>
 
-  <%
-=begin%>
- <% if note.attachment.exists? %>
+
+  <% if note.attachment.exists? %>
     <div class="note-details">
       <span class="glyphicon glyphicon-file"></span>
       <%= link_to note.attachment_file_name, note.attachment.url %>
@@ -13,8 +12,6 @@
       <%= number_to_human_size(note.attachment_file_size) %>)
     </div>
   <% end %>
-<%
-=end%>
 
   <h4 class="note-info">
     <%= note.user_name %>,
