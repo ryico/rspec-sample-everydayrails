@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_27_083631) do
+ActiveRecord::Schema.define(version: 2021_06_27_101936) do
 
   create_table "notes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "message"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2021_06_27_083631) do
     t.string "first_name"
     t.string "last_name"
     t.string "authentication_token"
+    t.string "location"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
