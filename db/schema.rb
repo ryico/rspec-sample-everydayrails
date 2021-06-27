@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_25_004509) do
+ActiveRecord::Schema.define(version: 2021_06_27_083631) do
 
   create_table "notes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "message"
@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 2021_06_25_004509) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.bigint "attachment_file_size"
+    t.datetime "attachment_updated_at"
     t.index ["project_id"], name: "index_notes_on_project_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
