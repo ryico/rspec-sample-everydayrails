@@ -4,6 +4,8 @@ RSpec.describe Note, type: :model do
   let(:user) { create(:user) }
   let(:project) { create(:project, owner: user) }
 
+  it { is_expected.to have_attached_file(:attachment) }
+
   it 'generates associated data from a factory' do
     note = create(:note)
     puts "This note's project is #{note.project.inspect}"
